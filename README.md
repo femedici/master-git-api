@@ -50,23 +50,23 @@ Ao concluir o **MasterGit**, o estudante será capaz de:
 
 #### **Competências Conceituais**
 
-- 🧠 Explicar o **modelo mental do Git** (objetos, commits, branches, HEAD, working tree, index)
-- 🔍 Diferenciar e aplicar `git checkout`, `git switch` e `git restore` adequadamente
-- 📊 Compreender **estratégias de branching** (Git Flow, GitHub Flow, Trunk-Based)
+- Explicar o **modelo mental do Git** (objetos, commits, branches, HEAD, working tree, index)
+- Diferenciar e aplicar `git checkout`, `git switch` e `git restore` adequadamente
+- Compreender **estratégias de branching** (Git Flow, GitHub Flow, Trunk-Based)
 
 #### **Competências Práticas**
 
-- ⚡ Aplicar **fluxos de branching** (feature, release, hotfix) com segurança
-- 🛠️ Diagnosticar e resolver **conflitos de mesclagem** documentando o raciocínio
-- 🏗️ Projetar **estratégias de versionamento** adequadas a contextos específicos
-- 🤝 Operacionalizar **colaboração**: pull requests, code reviews, semantic commits
+- Aplicar **fluxos de branching** (feature, release, hotfix) com segurança
+- Diagnosticar e resolver **conflitos de mesclagem** documentando o raciocínio
+- Projetar **estratégias de versionamento** adequadas a contextos específicos
+- Operacionalizar **colaboração**: pull requests, code reviews, semantic commits
 
 #### **Competências Avançadas**
 
-- ⚖️ Avaliar **riscos e trade-offs** de decisões de versionamento
-- 🔬 Garantir **reprodutibilidade** de experimentos científicos com branches e tags
-- 📋 Implementar **automação de releases** e changelogs
-- 🎯 Auditar históricos de commits para conformidade e qualidade
+- Avaliar **riscos e trade-offs** de decisões de versionamento
+- Garantir **reprodutibilidade** de experimentos científicos com branches e tags
+- Implementar **automação de releases** e changelogs
+- Auditar históricos de commits para conformidade e qualidade
 
 ---
 
