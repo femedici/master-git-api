@@ -12,6 +12,26 @@ class DataService {
   private tests: Test[] = [testModule1, testModule2, testModule3];
   private currentUser: User = { ...mockUser };
 
+  constructor() {
+    // Load progress from localStorage if available
+    this.loadProgressFromStorage();
+  }
+
+  private saveProgressToStorage(): void {
+    localStorage.setItem('mastergit-progress', JSON.stringify(this.currentUser.progress));
+  }
+
+  private loadProgressFromStorage(): void {
+    const savedProgress = localStorage.getItem('mastergit-progress');
+    if (savedProgress) {
+      try {
+        this.currentUser.progress = JSON.parse(savedProgress);
+      } catch (error) {
+        console.error('Error loading progress from storage:', error);
+      }
+    }
+  }
+
   // User methods
   getCurrentUser(): User {
     return this.currentUser;
@@ -60,6 +80,7 @@ class DataService {
     
     if (!this.currentUser.progress.sessionProgress[moduleId].includes(sessionId)) {
       this.currentUser.progress.sessionProgress[moduleId].push(sessionId);
+      this.saveProgressToStorage(); // Save progress after completing session
     }
   }
 
@@ -69,6 +90,10 @@ class DataService {
     
     const completedSessions = this.currentUser.progress.sessionProgress[moduleId] || [];
     return completedSessions.length === module.sessions.length;
+  }
+
+  isCourseCompleted(): boolean {
+    return this.currentUser.progress.completedModules.length === this.modules.length;
   }
 
   // Test methods
@@ -115,6 +140,7 @@ class DataService {
       if (test.moduleId < 3) {
         this.currentUser.progress.currentModule = test.moduleId + 1;
       }
+      this.saveProgressToStorage(); // Save progress after completing test
     }
 
     return result;
@@ -133,7 +159,7 @@ class DataService {
     });
   }
 
-  register(name: string, email: string, password: string): Promise<User> {
+  register(name: string, email: string, _password: string): Promise<User> {
     return new Promise((resolve) => {
       setTimeout(() => {
         this.currentUser = {

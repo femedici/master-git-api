@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import dataService from '../services/dataService';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import dataService from "../services/dataService";
 
 const Container = styled.div`
   min-height: 100vh;
   display: flex;
-  background: #f5faff;
+  background: #0f1c29;
 `;
 
 const ImageSection = styled.div`
@@ -16,9 +16,9 @@ const ImageSection = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  
+
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
@@ -43,12 +43,20 @@ const LogoSubtitle = styled.p`
   max-width: 300px;
 `;
 
+const LogoImage = styled.img`
+  width: 120px;
+  height: 120px;
+  margin-bottom: 24px;
+  filter: brightness(0) invert(1);
+`;
+
 const FormSection = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 32px;
+  background: #0f1c29;
 `;
 
 const FormContainer = styled.div`
@@ -58,13 +66,13 @@ const FormContainer = styled.div`
 
 const FormTitle = styled.h2`
   font-size: 32px;
-  color: #1a202c;
+  color: #ffffff;
   margin-bottom: 8px;
   text-align: center;
 `;
 
 const FormSubtitle = styled.p`
-  color: #4a5568;
+  color: #e2e8f0;
   margin-bottom: 32px;
   text-align: center;
 `;
@@ -82,15 +90,17 @@ const FormGroup = styled.div`
 `;
 
 const Label = styled.label`
-  color: #2d3748;
+  color: #ffffff;
   font-weight: 500;
 `;
 
 const Input = styled.input`
   padding: 12px 16px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #2d3748;
   border-radius: 8px;
   font-size: 16px;
+  background: #1a2332;
+  color: #ffffff;
   transition: border-color 0.2s;
 
   &:focus {
@@ -127,6 +137,10 @@ const ToggleButton = styled.button`
   cursor: pointer;
   font-weight: 500;
   text-decoration: underline;
+
+  &:hover {
+    color: #ff8565;
+  }
 `;
 
 const ErrorMessage = styled.div`
@@ -140,25 +154,25 @@ const ErrorMessage = styled.div`
 const LoginPage = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
@@ -166,14 +180,18 @@ const LoginPage = () => {
         await dataService.login(formData.email, formData.password);
       } else {
         if (formData.password !== formData.confirmPassword) {
-          setError('Senhas não coincidem');
+          setError("Senhas não coincidem");
           return;
         }
-        await dataService.register(formData.name, formData.email, formData.password);
+        await dataService.register(
+          formData.name,
+          formData.email,
+          formData.password
+        );
       }
-      navigate('/home');
+      navigate("/home");
     } catch (err) {
-      setError('Erro ao fazer login. Verifique suas credenciais.');
+      setError("Erro ao fazer login. Verifique suas credenciais.");
     } finally {
       setLoading(false);
     }
@@ -181,26 +199,30 @@ const LoginPage = () => {
 
   const toggleMode = () => {
     setIsLogin(!isLogin);
-    setError('');
-    setFormData({ name: '', email: '', password: '', confirmPassword: '' });
+    setError("");
+    setFormData({ name: "", email: "", password: "", confirmPassword: "" });
   };
 
   return (
     <Container>
       <ImageSection>
         <Logo>
-          <LogoTitle>🎓 MasterGit</LogoTitle>
+          <LogoImage src="/git-icon.svg" alt="Git Logo" />
+          <LogoTitle>MasterGit</LogoTitle>
           <LogoSubtitle>
-            Domine o Git do básico ao avançado com nosso sistema de aprendizagem completo
+            Domine o Git do básico ao avançado com nosso sistema de aprendizagem
+            completo
           </LogoSubtitle>
         </Logo>
       </ImageSection>
-      
+
       <FormSection>
         <FormContainer>
-          <FormTitle>{isLogin ? 'Entrar' : 'Cadastrar'}</FormTitle>
+          <FormTitle>{isLogin ? "Entrar" : "Cadastrar"}</FormTitle>
           <FormSubtitle>
-            {isLogin ? 'Acesse sua conta para continuar aprendendo' : 'Crie sua conta e comece sua jornada'}
+            {isLogin
+              ? "Acesse sua conta para continuar aprendendo"
+              : "Crie sua conta e comece sua jornada"}
           </FormSubtitle>
 
           {error && <ErrorMessage>{error}</ErrorMessage>}
@@ -259,14 +281,14 @@ const LoginPage = () => {
             )}
 
             <Button type="submit" disabled={loading}>
-              {loading ? 'Carregando...' : (isLogin ? 'Entrar' : 'Cadastrar')}
+              {loading ? "Carregando..." : isLogin ? "Entrar" : "Cadastrar"}
             </Button>
           </Form>
 
-          <div style={{ textAlign: 'center', marginTop: '24px' }}>
-            {isLogin ? 'Não tem uma conta? ' : 'Já tem uma conta? '}
+          <div style={{ textAlign: "center", marginTop: "24px", color: "#e2e8f0" }}>
+            {isLogin ? "Não tem uma conta? " : "Já tem uma conta? "}
             <ToggleButton onClick={toggleMode}>
-              {isLogin ? 'Cadastre-se' : 'Faça login'}
+              {isLogin ? "Cadastre-se" : "Faça login"}
             </ToggleButton>
           </div>
         </FormContainer>

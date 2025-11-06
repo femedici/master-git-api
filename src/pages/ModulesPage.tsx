@@ -21,25 +21,26 @@ const MainContent = styled.div`
 const Content = styled.div`
   flex: 1;
   padding: 32px;
-  background: #f5faff;
+  background: #0f1c29;
 `;
 
 const ModuleHeader = styled.div`
-  background: white;
+  background: #1a2332;
   padding: 32px;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid #2d3748;
   margin-bottom: 32px;
 `;
 
 const ModuleTitle = styled.h2`
   font-size: 28px;
-  color: #1a202c;
+  color: #ffffff;
   margin-bottom: 8px;
 `;
 
 const ModuleDescription = styled.p`
-  color: #4a5568;
+  color: #e2e8f0;
   font-size: 16px;
   line-height: 1.6;
 `;
@@ -51,11 +52,12 @@ const SessionsContainer = styled.div`
 `;
 
 const SessionCard = styled.div<{ $isCompleted: boolean }>`
-  background: white;
+  background: #1a2332;
   padding: 24px;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border-left: 4px solid ${props => props.$isCompleted ? '#48bb78' : '#e2e8f0'};
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid #2d3748;
+  border-left: 4px solid ${props => props.$isCompleted ? '#48bb78' : '#2d3748'};
 `;
 
 const SessionHeader = styled.div`
@@ -67,7 +69,7 @@ const SessionHeader = styled.div`
 
 const SessionTitle = styled.h3`
   font-size: 20px;
-  color: #1a202c;
+  color: #ffffff;
 `;
 
 const SessionStatus = styled.div`
@@ -83,25 +85,26 @@ const Checkbox = styled.input`
 `;
 
 const SessionContent = styled.div`
-  color: #4a5568;
+  color: #e2e8f0;
   line-height: 1.6;
   margin-bottom: 16px;
   white-space: pre-wrap;
 `;
 
 const CodeBlock = styled.pre`
-  background: #1a202c;
+  background: #0f1c29;
   color: #e2e8f0;
   padding: 16px;
   border-radius: 8px;
   overflow-x: auto;
   margin: 16px 0;
   font-family: 'Courier New', monospace;
+  border: 1px solid #2d3748;
 `;
 
 const TestButton = styled.button<{ $isEnabled: boolean }>`
-  background: ${props => props.$isEnabled ? '#ff6742' : '#e2e8f0'};
-  color: ${props => props.$isEnabled ? 'white' : '#a0aec0'};
+  background: ${props => props.$isEnabled ? '#ff6742' : '#2d3748'};
+  color: ${props => props.$isEnabled ? 'white' : '#718096'};
   border: none;
   padding: 16px 24px;
   border-radius: 8px;
@@ -112,7 +115,7 @@ const TestButton = styled.button<{ $isEnabled: boolean }>`
   margin-top: 32px;
 
   &:hover {
-    background: ${props => props.$isEnabled ? '#ff8565' : '#e2e8f0'};
+    background: ${props => props.$isEnabled ? '#ff8565' : '#2d3748'};
   }
 `;
 
@@ -167,7 +170,7 @@ const ModulesPage = () => {
           <ModuleHeader>
             <ModuleTitle>{module.title}</ModuleTitle>
             <ModuleDescription>{module.description}</ModuleDescription>
-            <div style={{ marginTop: '16px', color: '#4a5568' }}>
+            <div style={{ marginTop: '16px', color: '#e2e8f0' }}>
               Progresso: {completedSessions} de {module.sessions.length} sessões concluídas
             </div>
           </ModuleHeader>
@@ -197,9 +200,9 @@ const ModulesPage = () => {
                 )}
                 
                 {session.practicalActivity && (
-                  <div style={{ background: '#fef5e7', padding: '16px', borderRadius: '8px', marginTop: '16px' }}>
-                    <strong>Atividade prática:</strong>
-                    <div style={{ marginTop: '8px' }}>{session.practicalActivity}</div>
+                  <div style={{ background: '#2d3748', padding: '16px', borderRadius: '8px', marginTop: '16px', border: '1px solid #4a5568' }}>
+                    <strong style={{ color: '#fbbf24' }}>Atividade prática:</strong>
+                    <div style={{ marginTop: '8px', color: '#e2e8f0' }}>{session.practicalActivity}</div>
                   </div>
                 )}
               </SessionCard>

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
+import CompletionModal from '../components/CompletionModal';
 import dataService from '../services/dataService';
 import { User, Test, Question, TestResult } from '../types';
 
@@ -21,25 +22,26 @@ const MainContent = styled.div`
 const Content = styled.div`
   flex: 1;
   padding: 32px;
-  background: #f5faff;
+  background: #0f1c29;
 `;
 
 const TestHeader = styled.div`
-  background: white;
+  background: #1a2332;
   padding: 32px;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid #2d3748;
   margin-bottom: 32px;
 `;
 
 const TestTitle = styled.h2`
   font-size: 28px;
-  color: #1a202c;
+  color: #ffffff;
   margin-bottom: 8px;
 `;
 
 const TestInfo = styled.p`
-  color: #4a5568;
+  color: #e2e8f0;
   font-size: 16px;
   line-height: 1.6;
 `;
@@ -51,10 +53,11 @@ const QuestionsContainer = styled.div`
 `;
 
 const QuestionCard = styled.div`
-  background: white;
+  background: #1a2332;
   padding: 24px;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid #2d3748;
 `;
 
 const QuestionNumber = styled.div`
@@ -65,7 +68,7 @@ const QuestionNumber = styled.div`
 
 const QuestionText = styled.h3`
   font-size: 18px;
-  color: #1a202c;
+  color: #ffffff;
   margin-bottom: 16px;
   line-height: 1.5;
 `;
@@ -81,13 +84,15 @@ const OptionLabel = styled.label`
   align-items: center;
   gap: 12px;
   padding: 12px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #2d3748;
   border-radius: 8px;
   cursor: pointer;
   transition: border-color 0.2s;
+  color: #e2e8f0;
 
   &:hover {
     border-color: #ff6742;
+    background: #2d3748;
   }
 `;
 
@@ -105,20 +110,24 @@ const CodeInputContainer = styled.div`
 `;
 
 const CodePrefix = styled.span`
-  background: #1a202c;
+  background: #0f1c29;
   color: #e2e8f0;
   padding: 8px 12px;
   border-radius: 4px 0 0 4px;
+  border: 2px solid #2d3748;
+  border-right: none;
 `;
 
 const CodeInput = styled.input`
   padding: 8px 12px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #2d3748;
   border-left: none;
   border-radius: 0 4px 4px 0;
   font-family: 'Courier New', monospace;
   font-size: 16px;
   min-width: 200px;
+  background: #0f1c29;
+  color: #e2e8f0;
 
   &:focus {
     outline: none;
@@ -130,10 +139,12 @@ const TextArea = styled.textarea`
   width: 100%;
   min-height: 120px;
   padding: 12px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #2d3748;
   border-radius: 8px;
   font-size: 16px;
   resize: vertical;
+  background: #0f1c29;
+  color: #e2e8f0;
 
   &:focus {
     outline: none;
@@ -206,6 +217,7 @@ const TestPage = () => {
   const [answers, setAnswers] = useState<{ [questionId: number]: string }>({});
   const [result, setResult] = useState<TestResult | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showCompletionModal, setShowCompletionModal] = useState(false);
 
   useEffect(() => {
     if (moduleId) {
@@ -230,6 +242,14 @@ const TestPage = () => {
     try {
       const testResult = dataService.submitTest(test.id, answers);
       setResult(testResult);
+      
+      // Check if course is completed after test submission
+      if (testResult.passed && dataService.isCourseCompleted() && !localStorage.getItem('mastergit-completion-shown')) {
+        setTimeout(() => {
+          setShowCompletionModal(true);
+          localStorage.setItem('mastergit-completion-shown', 'true');
+        }, 2000); // Show modal after 2 seconds to let user see the test result first
+      }
     } catch (error) {
       console.error('Erro ao submeter teste:', error);
     } finally {
@@ -243,6 +263,10 @@ const TestPage = () => {
     } else {
       navigate(`/module/${moduleId}`);
     }
+  };
+
+  const handleCloseCompletionModal = () => {
+    setShowCompletionModal(false);
   };
 
   if (!user || !test) {
@@ -261,7 +285,7 @@ const TestPage = () => {
           <Content>
             <ResultContainer $passed={result.passed}>
               <ResultTitle>
-                {result.passed ? '🎉 Parabéns! Você foi aprovado!' : '😔 Você não foi aprovado'}
+                {result.passed ? 'Parabéns! Você foi aprovado!' : 'Você não foi aprovado'}
               </ResultTitle>
               <ResultScore>{result.score}%</ResultScore>
               <div>
@@ -281,6 +305,13 @@ const TestPage = () => {
             </ResultContainer>
           </Content>
         </MainContent>
+        
+        {showCompletionModal && (
+          <CompletionModal 
+            onClose={handleCloseCompletionModal} 
+            userName={user?.name || 'Usuário'} 
+          />
+        )}
       </PageContainer>
     );
   }
@@ -355,6 +386,13 @@ const TestPage = () => {
           </SubmitButton>
         </Content>
       </MainContent>
+      
+      {showCompletionModal && (
+        <CompletionModal 
+          onClose={handleCloseCompletionModal} 
+          userName={user?.name || 'Usuário'} 
+        />
+      )}
     </PageContainer>
   );
 };

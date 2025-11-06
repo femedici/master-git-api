@@ -2,18 +2,18 @@ import styled from 'styled-components';
 
 const HeaderContainer = styled.header`
   height: 70px;
-  background: white;
-  border-bottom: 1px solid #e2e8f0;
+  background: #1a2332;
+  border-bottom: 1px solid #2d3748;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 32px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 `;
 
 const PageTitle = styled.h1`
   font-size: 24px;
-  color: #1a202c;
+  color: #ffffff;
   font-weight: 600;
 `;
 
@@ -24,7 +24,7 @@ const UserInfo = styled.div`
 `;
 
 const UserName = styled.span`
-  color: #4a5568;
+  color: #e2e8f0;
   font-weight: 500;
 `;
 

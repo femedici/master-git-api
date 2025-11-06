@@ -1,5 +1,6 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { Home, BookOpen, Terminal, Settings } from 'lucide-react';
 
 const SidebarContainer = styled.div`
   width: 280px;
@@ -14,11 +15,21 @@ const SidebarContainer = styled.div`
   overflow-y: auto;
 `;
 
-const Logo = styled.h1`
+const Logo = styled.div`
   font-size: 28px;
   font-weight: bold;
   margin-bottom: 32px;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+`;
+
+const LogoImage = styled.img`
+  width: 32px;
+  height: 32px;
+  filter: brightness(0) invert(1);
 `;
 
 const Nav = styled.nav`
@@ -27,20 +38,20 @@ const Nav = styled.nav`
   gap: 16px;
 `;
 
-const NavItem = styled(Link)<{ $isActive?: boolean; $isLocked?: boolean }>`
+const NavItem = styled.div<{ $isActive?: boolean; $isLocked?: boolean }>`
   display: flex;
   align-items: center;
   padding: 12px 16px;
   border-radius: 8px;
   color: white;
-  text-decoration: none;
+  cursor: ${props => props.$isLocked ? 'not-allowed' : 'pointer'};
   background: ${props => props.$isActive ? 'rgba(255, 255, 255, 0.2)' : 'transparent'};
   opacity: ${props => props.$isLocked ? '0.5' : '1'};
   pointer-events: ${props => props.$isLocked ? 'none' : 'auto'};
   transition: background-color 0.2s;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: ${props => props.$isLocked ? 'transparent' : 'rgba(255, 255, 255, 0.1)'};
   }
 `;
 
@@ -61,39 +72,51 @@ const Sidebar = ({ currentModule, completedModules = [] }: SidebarProps) => {
     navigate('/login');
   };
 
+  const handleNavigation = (path: string, isLocked = false) => {
+    if (!isLocked) {
+      navigate(path);
+    }
+  };
+
   return (
     <SidebarContainer>
-      <Logo>🎓 MasterGit</Logo>
+      <Logo>
+        <LogoImage src="/git-icon.svg" alt="Git Logo" />
+        MasterGit
+      </Logo>
       <Nav>
-        <NavItem to="/home" $isActive={true}>
-          <NavIcon>🏠</NavIcon>
+        <NavItem 
+          $isActive={window.location.pathname === '/home'}
+          onClick={() => handleNavigation('/home')}
+        >
+          <NavIcon><Home size={18} /></NavIcon>
           Dashboard
         </NavItem>
         
         <NavItem 
-          to="/module/1" 
           $isActive={currentModule === 1}
           $isLocked={false}
+          onClick={() => handleNavigation('/module/1')}
         >
-          <NavIcon>📘</NavIcon>
+          <NavIcon><BookOpen size={18} /></NavIcon>
           Módulo 1 - O que é Git?
         </NavItem>
         
         <NavItem 
-          to="/module/2" 
           $isActive={currentModule === 2}
           $isLocked={!completedModules.includes(1)}
+          onClick={() => handleNavigation('/module/2', !completedModules.includes(1))}
         >
-          <NavIcon>💻</NavIcon>
+          <NavIcon><Terminal size={18} /></NavIcon>
           Módulo 2 - Como usar Git
         </NavItem>
         
         <NavItem 
-          to="/module/3" 
           $isActive={currentModule === 3}
           $isLocked={!completedModules.includes(2)}
+          onClick={() => handleNavigation('/module/3', !completedModules.includes(2))}
         >
-          <NavIcon>⚙️</NavIcon>
+          <NavIcon><Settings size={18} /></NavIcon>
           Módulo 3 - Masterizando Git
         </NavItem>
       </Nav>
