@@ -1,22 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import Sidebar from '../components/Sidebar';
-import Header from '../components/Header';
 import dataService from '../services/dataService';
 import { User, Module, Session } from '../types';
-
-const PageContainer = styled.div`
-  display: flex;
-  min-height: 100vh;
-`;
-
-const MainContent = styled.div`
-  margin-left: 280px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-`;
 
 const Content = styled.div`
   flex: 1;
@@ -58,6 +43,13 @@ const SessionCard = styled.div<{ $isCompleted: boolean }>`
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   border: 1px solid #2d3748;
   border-left: 4px solid ${props => props.$isCompleted ? '#48bb78' : '#2d3748'};
+  transition: all 0.3s ease;
+  cursor: pointer;
+  
+  ${props => props.$isCompleted && `
+    filter: grayscale(0.7) opacity(0.8);
+    transform: scale(0.98);
+  `}
 `;
 
 const SessionHeader = styled.div`
@@ -65,11 +57,19 @@ const SessionHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    color: #ff6742;
+  }
 `;
 
 const SessionTitle = styled.h3`
   font-size: 20px;
   color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 `;
 
 const SessionStatus = styled.div`
@@ -78,17 +78,50 @@ const SessionStatus = styled.div`
   gap: 8px;
 `;
 
-const Checkbox = styled.input`
-  width: 20px;
-  height: 20px;
+const CustomCheckbox = styled.div<{ $isCompleted: boolean }>`
+  width: 24px;
+  height: 24px;
+  border: 2px solid ${props => props.$isCompleted ? '#48bb78' : '#4a5568'};
+  border-radius: 50%;
+  background: ${props => props.$isCompleted ? '#48bb78' : 'transparent'};
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+
+  &:hover {
+    border-color: ${props => props.$isCompleted ? '#38a169' : '#ff6742'};
+    transform: scale(1.1);
+  }
+
+  ${props => props.$isCompleted && `
+    &::after {
+      content: '✓';
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+    }
+  `}
 `;
 
-const SessionContent = styled.div`
+const SessionContent = styled.div<{ $isVisible: boolean }>`
   color: #e2e8f0;
   line-height: 1.6;
   margin-bottom: 16px;
   white-space: pre-wrap;
+  max-height: ${props => props.$isVisible ? '2000px' : '0'};
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: ${props => props.$isVisible ? '1' : '0'};
+`;
+
+const CollapsibleContent = styled.div<{ $isVisible: boolean }>`
+  max-height: ${props => props.$isVisible ? '2000px' : '0'};
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: ${props => props.$isVisible ? '1' : '0'};
 `;
 
 const CodeBlock = styled.pre`
@@ -119,78 +152,129 @@ const TestButton = styled.button<{ $isEnabled: boolean }>`
   }
 `;
 
-const ModulesPage = () => {
-  const { moduleId } = useParams();
-  const navigate = useNavigate();
-  const [user, setUser] = useState<User | null>(null);
+interface ModulesPageProps {
+  moduleId: string | undefined;
+  user: User | null;
+}
+
+const ModulesPage: React.FC<ModulesPageProps> = ({ moduleId, user }) => {
   const [module, setModule] = useState<Module | null>(null);
+  const [expandedSessions, setExpandedSessions] = useState<Set<number>>(new Set());
 
   useEffect(() => {
     if (moduleId) {
-      const currentUser = dataService.getCurrentUser();
       const moduleData = dataService.getModule(parseInt(moduleId));
-      setUser(currentUser);
       setModule(moduleData || null);
+      
+      // Inicializar sessões expandidas (todas as não completadas ficam abertas)
+      if (moduleData) {
+        const openSessions = new Set(
+          moduleData.sessions
+            .filter(session => !session.isCompleted)
+            .map(session => session.id)
+        );
+        setExpandedSessions(openSessions);
+      }
     }
   }, [moduleId]);
 
-  const handleSessionToggle = (sessionId: number, isCompleted: boolean) => {
-    if (isCompleted && moduleId) {
-      dataService.completeSession(parseInt(moduleId), sessionId);
+  const toggleSessionExpansion = (sessionId: number) => {
+    const newExpanded = new Set(expandedSessions);
+    if (newExpanded.has(sessionId)) {
+      newExpanded.delete(sessionId);
+    } else {
+      newExpanded.add(sessionId);
+    }
+    setExpandedSessions(newExpanded);
+  };
+
+  const handleSessionToggle = (sessionId: number, currentStatus: boolean) => {
+    if (moduleId) {
+      const newExpanded = new Set(expandedSessions);
+      
+      if (!currentStatus) {
+        console.log('Completing session:', sessionId);
+        dataService.completeSession(parseInt(moduleId), sessionId);
+        
+      
+        newExpanded.delete(sessionId);
+      } else {
+        // Desmarcando a sessão (tornar incompleta)
+        console.log('Uncompleting session:', sessionId);
+        dataService.uncompleteSession(parseInt(moduleId), sessionId);
+        
+        // Expandir a sessão quando desmarcar
+        newExpanded.add(sessionId);
+      }
+      
+      setExpandedSessions(newExpanded);
+      
       // Refresh data
-      const updatedUser = dataService.getCurrentUser();
       const updatedModule = dataService.getModule(parseInt(moduleId));
-      setUser(updatedUser);
       setModule(updatedModule || null);
     }
   };
 
   const handleTestClick = () => {
     if (moduleId && module && dataService.isModuleReadyForTest(module.id)) {
-      navigate(`/test/${moduleId}`);
+      window.history.pushState(null, '', `/test/${moduleId}`);
+      window.dispatchEvent(new PopStateEvent('popstate'));
     }
   };
 
   if (!user || !module) {
-    return <div>Carregando...</div>;
+    return <div style={{ color: '#ffffff', padding: '32px' }}>Carregando...</div>;
   }
 
   const isReadyForTest = dataService.isModuleReadyForTest(module.id);
   const completedSessions = user.progress.sessionProgress[module.id]?.length || 0;
 
   return (
-    <PageContainer>
-      <Sidebar 
-        currentModule={user.progress.currentModule}
-        completedModules={user.progress.completedModules}
-      />
-      <MainContent>
-        <Header title={module.title} userName={user.name} />
-        <Content>
-          <ModuleHeader>
-            <ModuleTitle>{module.title}</ModuleTitle>
-            <ModuleDescription>{module.description}</ModuleDescription>
-            <div style={{ marginTop: '16px', color: '#e2e8f0' }}>
-              Progresso: {completedSessions} de {module.sessions.length} sessões concluídas
-            </div>
-          </ModuleHeader>
+    <Content>
+      <ModuleHeader>
+        <ModuleTitle>{module.title}</ModuleTitle>
+        <ModuleDescription>{module.description}</ModuleDescription>
+        <div style={{ marginTop: '16px', color: '#e2e8f0' }}>
+          Progresso: {completedSessions} de {module.sessions.length} sessões concluídas
+        </div>
+      </ModuleHeader>
 
-          <SessionsContainer>
-            {module.sessions.map((session: Session) => (
-              <SessionCard key={session.id} $isCompleted={session.isCompleted}>
-                <SessionHeader>
-                  <SessionTitle>{session.title}</SessionTitle>
-                  <SessionStatus>
-                    <span>Concluída</span>
-                    <Checkbox
-                      type="checkbox"
-                      checked={session.isCompleted}
-                      onChange={(e) => handleSessionToggle(session.id, e.target.checked)}
-                    />
-                  </SessionStatus>
-                </SessionHeader>
-                
-                <SessionContent>{session.content}</SessionContent>
+      <SessionsContainer>
+        {module.sessions.map((session: Session) => {
+          const isExpanded = expandedSessions.has(session.id);
+          
+          return (
+            <SessionCard 
+              key={session.id} 
+              $isCompleted={session.isCompleted}
+              onClick={() => toggleSessionExpansion(session.id)}
+            >
+              <SessionHeader>
+                <SessionTitle>
+                  <span style={{ 
+                    transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.2s ease',
+                    fontSize: '14px',
+                    color: '#a0aec0'
+                  }}>
+                    ▶
+                  </span>
+                  {session.title}
+                </SessionTitle>
+                <SessionStatus>
+                  {!session.isCompleted && <span>Concluir</span>}
+                  <CustomCheckbox
+                    $isCompleted={session.isCompleted}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleSessionToggle(session.id, session.isCompleted);
+                    }}
+                  />
+                </SessionStatus>
+              </SessionHeader>
+              
+              <CollapsibleContent $isVisible={isExpanded}>
+                <SessionContent $isVisible={true}>{session.content}</SessionContent>
                 
                 {session.practicalExample && (
                   <div>
@@ -205,19 +289,19 @@ const ModulesPage = () => {
                     <div style={{ marginTop: '8px', color: '#e2e8f0' }}>{session.practicalActivity}</div>
                   </div>
                 )}
-              </SessionCard>
-            ))}
-          </SessionsContainer>
+              </CollapsibleContent>
+            </SessionCard>
+          );
+        })}
+      </SessionsContainer>
 
-          <TestButton 
-            $isEnabled={isReadyForTest}
-            onClick={handleTestClick}
-          >
-            {isReadyForTest ? 'Fazer Teste do Módulo' : `Complete todas as sessões para fazer o teste (${completedSessions}/${module.sessions.length})`}
-          </TestButton>
-        </Content>
-      </MainContent>
-    </PageContainer>
+      <TestButton 
+        $isEnabled={isReadyForTest}
+        onClick={handleTestClick}
+      >
+        {isReadyForTest ? 'Fazer Teste do Módulo' : `Complete todas as sessões para fazer o teste (${completedSessions}/${module.sessions.length})`}
+      </TestButton>
+    </Content>
   );
 };
 

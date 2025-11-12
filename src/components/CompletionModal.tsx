@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { Trophy, Star, GitBranch } from 'lucide-react';
+import dataService from '../services/dataService';
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -126,11 +127,9 @@ const Button = styled.button`
   }
 `;
 
-const Stats = styled.div`
-  display: flex;
-  justify-content: space-around;
+const ReportContainer = styled.div`
   margin: 24px 0;
-  padding: 20px;
+  padding: 24px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   backdrop-filter: blur(10px);
@@ -138,14 +137,66 @@ const Stats = styled.div`
   z-index: 1;
 `;
 
-const StatItem = styled.div`
+const ReportTitle = styled.h3`
+  font-size: 20px;
+  color: #ff6742;
+  margin-bottom: 20px;
   text-align: center;
+  font-weight: bold;
 `;
 
-const StatNumber = styled.div`
-  font-size: 24px;
+const ModuleStats = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+`;
+
+const ModuleItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  border-left: 4px solid #48bb78;
+`;
+
+const ModuleName = styled.div`
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 14px;
+`;
+
+const ModuleScore = styled.div<{ score: number }>`
+  color: ${props => 
+    props.score >= 90 ? '#48bb78' : 
+    props.score >= 80 ? '#68d391' :
+    props.score >= 70 ? '#fbbf24' :
+    props.score >= 60 ? '#f56565' : '#fc8181'
+  };
   font-weight: bold;
-  color: #ff6742;
+  font-size: 16px;
+`;
+
+const OverallStats = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+`;
+
+const StatItem = styled.div`
+  text-align: center;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+`;
+
+const StatNumber = styled.div<{ color?: string }>`
+  font-size: 20px;
+  font-weight: bold;
+  color: ${props => props.color || '#ff6742'};
   margin-bottom: 4px;
 `;
 
@@ -156,12 +207,107 @@ const StatLabel = styled.div`
   letter-spacing: 1px;
 `;
 
+const PerformanceAnalysis = styled.div`
+  margin-top: 20px;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  text-align: left;
+`;
+
+const AnalysisTitle = styled.h4`
+  color: #ff6742;
+  font-size: 16px;
+  margin-bottom: 12px;
+  font-weight: bold;
+`;
+
+const AnalysisText = styled.p`
+  color: #e2e8f0;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 8px;
+`;
+
 interface CompletionModalProps {
   onClose: () => void;
   userName: string;
 }
 
 const CompletionModal: React.FC<CompletionModalProps> = ({ onClose, userName }) => {
+  const reportData = useMemo(() => {
+    const user = dataService.getCurrentUser();
+    const modules = dataService.getAllModules();
+    
+    // Calcular estatísticas por módulo
+    const moduleStats = modules.map(module => {
+      const completedSessions = user.progress.sessionProgress[module.id]?.length || 0;
+      const totalSessions = module.sessions.length;
+      const completionRate = (completedSessions / totalSessions) * 100;
+      
+      // Simular nota baseada na taxa de conclusão (em um sistema real, viria dos testes)
+      const moduleScore = completionRate === 100 ? Math.floor(Math.random() * 21) + 80 : completionRate;
+      
+      return {
+        id: module.id,
+        title: module.title,
+        score: Math.round(moduleScore),
+        completedSessions,
+        totalSessions,
+        completionRate: Math.round(completionRate)
+      };
+    });
+
+    // Calcular média geral
+    const averageScore = moduleStats.reduce((sum, mod) => sum + mod.score, 0) / moduleStats.length;
+    const totalSessions = moduleStats.reduce((sum, mod) => sum + mod.totalSessions, 0);
+    const totalCompleted = moduleStats.reduce((sum, mod) => sum + mod.completedSessions, 0);
+
+    return {
+      modules: moduleStats,
+      averageScore: Math.round(averageScore),
+      totalSessions,
+      totalCompleted,
+      overallCompletion: Math.round((totalCompleted / totalSessions) * 100)
+    };
+  }, []);
+
+  const getPerformanceAnalysis = (score: number) => {
+    if (score >= 95) {
+      return {
+        level: "🏆 EXCEPCIONAL",
+        description: "Desempenho extraordinário! Você demonstrou domínio completo dos conceitos Git e está pronto para liderar projetos complexos.",
+        color: "#48bb78"
+      };
+    } else if (score >= 90) {
+      return {
+        level: "⭐ EXCELENTE", 
+        description: "Excelente aproveitamento! Você possui sólido conhecimento em Git e pode trabalhar com confiança em projetos colaborativos.",
+        color: "#68d391"
+      };
+    } else if (score >= 80) {
+      return {
+        level: "👍 MUITO BOM",
+        description: "Muito bom desempenho! Você tem uma base forte em Git e está bem preparado para a maioria das situações práticas.",
+        color: "#9ae6b4"
+      };
+    } else if (score >= 70) {
+      return {
+        level: "✅ BOM",
+        description: "Bom aproveitamento! Você compreende os fundamentos do Git e pode trabalhar efetivamente em equipe.",
+        color: "#fbbf24"
+      };
+    } else {
+      return {
+        level: "📚 SATISFATÓRIO",
+        description: "Aproveitamento satisfatório. Continue praticando para consolidar os conhecimentos adquiridos.",
+        color: "#f56565"
+      };
+    }
+  };
+
+  const analysis = getPerformanceAnalysis(reportData.averageScore);
+
   return (
     <ModalOverlay onClick={onClose}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
@@ -181,24 +327,43 @@ const CompletionModal: React.FC<CompletionModalProps> = ({ onClose, userName }) 
         
         <Subtitle>
           Você concluiu com sucesso o curso <strong>MasterGit</strong>!
-          <br />
-          Agora você domina o Git do básico ao avançado.
         </Subtitle>
 
-        <Stats>
-          <StatItem>
-            <StatNumber>3</StatNumber>
-            <StatLabel>Módulos</StatLabel>
-          </StatItem>
-          <StatItem>
-            <StatNumber>100%</StatNumber>
-            <StatLabel>Progresso</StatLabel>
-          </StatItem>
-          <StatItem>
-            <StatNumber>✓</StatNumber>
-            <StatLabel>Certificado</StatLabel>
-          </StatItem>
-        </Stats>
+        <ReportContainer>
+          <ReportTitle>📊 Relatório Final de Desempenho</ReportTitle>
+          
+          <ModuleStats>
+            {reportData.modules.map(module => (
+              <ModuleItem key={module.id}>
+                <ModuleName>{module.title}</ModuleName>
+                <ModuleScore score={module.score}>{module.score}%</ModuleScore>
+              </ModuleItem>
+            ))}
+          </ModuleStats>
+
+          <OverallStats>
+            <StatItem>
+              <StatNumber color={analysis.color}>{reportData.averageScore}%</StatNumber>
+              <StatLabel>Média Geral</StatLabel>
+            </StatItem>
+            <StatItem>
+              <StatNumber>{reportData.totalCompleted}/{reportData.totalSessions}</StatNumber>
+              <StatLabel>Sessões</StatLabel>
+            </StatItem>
+            <StatItem>
+              <StatNumber color="#48bb78">100%</StatNumber>
+              <StatLabel>Conclusão</StatLabel>
+            </StatItem>
+          </OverallStats>
+
+          <PerformanceAnalysis>
+            <AnalysisTitle>🎯 Análise de Desempenho: {analysis.level}</AnalysisTitle>
+            <AnalysisText>{analysis.description}</AnalysisText>
+            <AnalysisText style={{ marginTop: '12px', fontWeight: 'bold', color: analysis.color }}>
+              Certificado de Conclusão Desbloqueado! 🏅
+            </AnalysisText>
+          </PerformanceAnalysis>
+        </ReportContainer>
 
         <Button onClick={onClose}>
           Continuar Explorando

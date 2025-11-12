@@ -84,6 +84,14 @@ class DataService {
     }
   }
 
+  uncompleteSession(moduleId: number, sessionId: number): void {
+    if (this.currentUser.progress.sessionProgress[moduleId]) {
+      this.currentUser.progress.sessionProgress[moduleId] = 
+        this.currentUser.progress.sessionProgress[moduleId].filter(id => id !== sessionId);
+      this.saveProgressToStorage(); // Save progress after uncompleting session
+    }
+  }
+
   isModuleReadyForTest(moduleId: number): boolean {
     const module = this.modules.find(m => m.id === moduleId);
     if (!module) return false;

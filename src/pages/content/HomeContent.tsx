@@ -141,7 +141,7 @@ interface HomeContentProps {
   onShowCompletionModal?: () => void;
 }
 
-const HomeContent: React.FC<HomeContentProps> = ({ user }) => {
+const HomeContent: React.FC<HomeContentProps> = ({ user, onShowCompletionModal }) => {
   const [modules, setModules] = useState<Module[]>([]);
 
   useEffect(() => {
@@ -254,6 +254,27 @@ const HomeContent: React.FC<HomeContentProps> = ({ user }) => {
           );
         })}
       </ModulesGrid>
+      
+      {/* Botão temporário para testar o modal de conclusão */}
+      {onShowCompletionModal && (
+        <div style={{ marginTop: '32px', textAlign: 'center' }}>
+          <button
+            onClick={onShowCompletionModal}
+            style={{
+              background: '#ff6742',
+              color: 'white',
+              border: 'none',
+              padding: '12px 24px',
+              borderRadius: '8px',
+              fontSize: '14px',
+              cursor: 'pointer',
+              opacity: 0.7
+            }}
+          >
+            🧪 Testar Modal de Conclusão
+          </button>
+        </div>
+      )}
     </Content>
   );
 };
