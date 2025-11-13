@@ -1,5 +1,10 @@
 # MasterGit: Aprendizagem sobre Versionamento com uso da tecnologia Git
 
+![React](https://img.shields.io/badge/React-18.0+-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-5.0+-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Styled Components](https://img.shields.io/badge/Styled_Components-6.0+-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
+
  Objetos de Aprendizagem — Mestrado   
  Autor:  Felipe Augusto Medici de Oliveira — _RA 2458772_  
  Proposta de Objeto de Aprendizagem (OA) 
@@ -9,6 +14,22 @@
 ## Objetivo do sistema:
 
 Sistema para aprendizagem do controle de git. Onde o usuario ve seu progresso pelos modulos e atua com testes e validacoes do seu progresso.
+
+## 🎬 Demonstração da Aplicação
+
+![MasterGit Demo](./public/video-proj.gif)
+
+> **Demonstração interativa**: Sistema de aprendizagem com módulos progressivos, sessões expandíveis, testes interativos e relatório final de desempenho com análise personalizada.
+
+### 🛠️ Tecnologias Utilizadas:
+
+- **Frontend**: React 18 + TypeScript + Vite
+- **Styling**: Styled Components + CSS-in-JS
+- **Ícones**: Lucide React (biblioteca moderna de ícones)
+- **Roteamento**: React Router DOM (SPA navigation)
+- **Estado**: React Hooks + Context API
+- **Build**: Vite (hot reload + otimizações)
+- **Persistência**: LocalStorage API
 
 ## Mapa Conceitual (CMAP):
 
@@ -90,6 +111,66 @@ yarn dev
 yarn build
 ```
 
+### 📁 Estrutura do Projeto
+
+```
+src/
+├── components/          # Componentes reutilizáveis
+│   ├── CompletionModal.tsx  # Modal de conclusão com relatório
+│   ├── Header.tsx          # Cabeçalho da aplicação
+│   └── Sidebar.tsx         # Menu lateral de navegação
+├── pages/              # Páginas principais
+│   ├── LoginPage.tsx       # Página de autenticação
+│   ├── MainLayout.tsx      # Layout SPA principal
+│   ├── ModulesPage.tsx     # Lógica dos módulos (sessões)
+│   ├── TestPage.tsx        # Wrapper para testes
+│   └── content/           # Componentes de conteúdo
+├── services/           # Lógica de negócio
+│   ├── dataService.ts      # Gerenciamento de dados e persistência
+│   └── mockedData/        # "Banco de dados" mockado
+└── types/             # Definições TypeScript
+    └── index.ts           # Interfaces e tipos
+```
+
 ## 📖 Documentação Completa
 
 Para requisitos detalhados, consulte: [`requisitosDoc.md`](./requisitosDoc.md)
+
+---
+
+## 🚀 Status do Projeto
+
+✅ **Concluído** - Sistema funcional com todas as funcionalidades implementadas
+
+### 📋 Funcionalidades Implementadas:
+
+- [x] Sistema de autenticação
+- [x] Dashboard com progresso visual
+- [x] Módulos interativos com sessões expandíveis
+- [x] Sistema de testes com múltiplos tipos de questões
+- [x] Persistência de progresso local
+- [x] Modal de conclusão com relatório detalhado
+- [x] Navegação SPA fluida
+- [x] Design responsivo
+- [x] Animações e transições suaves
+
+## 🎓 Contexto Acadêmico
+
+Este projeto foi desenvolvido como **Objeto de Aprendizagem (OA)** para o Mestrado em Ciência da Computação, focando em metodologias ativas de ensino para o domínio de ferramentas de versionamento.
+
+### 📊 Métricas do Projeto:
+- **3 Módulos** progressivos de aprendizagem
+- **9 Sessões** interativas com conteúdo prático
+- **15+ Questões** de teste com diferentes tipos
+- **100% TypeScript** para type safety
+- **Responsive Design** para diferentes dispositivos
+
+---
+
+<div align="center">
+
+**MasterGit** - Domine o Git do básico ao avançado 🚀
+
+*Desenvolvido por Felipe Augusto Medici de Oliveira*
+
+</div>
