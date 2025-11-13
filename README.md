@@ -1,4 +1,4 @@
-# MasterGit: Laboratório de Versionamento Colaborativo
+# MasterGit: Aprendizagem sobre Versionamento com uso da tecnologia Git
 
 **Objetos de Aprendizagem — Mestrado**  
 **Autor:** Felipe Augusto Medici de Oliveira — _RA 2458772_  
