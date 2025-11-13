@@ -5,7 +5,7 @@ import { Home, BookOpen, Terminal, Settings } from 'lucide-react';
 const SidebarContainer = styled.div`
   width: 280px;
   height: 100vh;
-  background: linear-gradient(180deg, #ff6742 0%, #ff8565 100%);
+  background: linear-gradient(180deg, #4a5568 0%, #2d3748 100%);
   color: white;
   padding: 24px;
   box-sizing: border-box;

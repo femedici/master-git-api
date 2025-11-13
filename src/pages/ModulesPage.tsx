@@ -165,8 +165,7 @@ const ModulesPage: React.FC<ModulesPageProps> = ({ moduleId, user }) => {
     if (moduleId) {
       const moduleData = dataService.getModule(parseInt(moduleId));
       setModule(moduleData || null);
-      
-      // Inicializar sessões expandidas (todas as não completadas ficam abertas)
+
       if (moduleData) {
         const openSessions = new Set(
           moduleData.sessions
@@ -199,17 +198,14 @@ const ModulesPage: React.FC<ModulesPageProps> = ({ moduleId, user }) => {
       
         newExpanded.delete(sessionId);
       } else {
-        // Desmarcando a sessão (tornar incompleta)
         console.log('Uncompleting session:', sessionId);
         dataService.uncompleteSession(parseInt(moduleId), sessionId);
-        
-        // Expandir a sessão quando desmarcar
+
         newExpanded.add(sessionId);
       }
       
       setExpandedSessions(newExpanded);
-      
-      // Refresh data
+
       const updatedModule = dataService.getModule(parseInt(moduleId));
       setModule(updatedModule || null);
     }

@@ -323,7 +323,7 @@ const CompletionModal: React.FC<CompletionModalProps> = ({ onClose, userName }) 
           </Icon>
         </IconContainer>
 
-        <Title>🎉 Parabéns, {userName}!</Title>
+        <Title> Parabéns, {userName}!</Title>
         
         <Subtitle>
           Você concluiu com sucesso o curso <strong>MasterGit</strong>!
@@ -357,11 +357,8 @@ const CompletionModal: React.FC<CompletionModalProps> = ({ onClose, userName }) 
           </OverallStats>
 
           <PerformanceAnalysis>
-            <AnalysisTitle>🎯 Análise de Desempenho: {analysis.level}</AnalysisTitle>
+            <AnalysisTitle>Análise de Desempenho: {analysis.level}</AnalysisTitle>
             <AnalysisText>{analysis.description}</AnalysisText>
-            <AnalysisText style={{ marginTop: '12px', fontWeight: 'bold', color: analysis.color }}>
-              Certificado de Conclusão Desbloqueado! 🏅
-            </AnalysisText>
           </PerformanceAnalysis>
         </ReportContainer>
 

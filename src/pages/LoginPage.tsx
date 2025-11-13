@@ -11,7 +11,7 @@ const Container = styled.div`
 
 const ImageSection = styled.div`
   flex: 1;
-  background: linear-gradient(135deg, #ff6742 0%, #ff8565 100%);
+  background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -47,7 +47,6 @@ const LogoImage = styled.img`
   width: 120px;
   height: 120px;
   margin-bottom: 24px;
-  filter: brightness(0) invert(1);
 `;
 
 const FormSection = styled.div`

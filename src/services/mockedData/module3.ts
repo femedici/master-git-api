@@ -10,7 +10,7 @@ export const module3: Module = {
     {
       id: 7,
       title: 'Comandos Avançados',
-      content: `**Conteúdo:**
+      content: `Conteúdo:
 
 git stash — salvar e restaurar alterações temporárias.
 git rebase — reorganizar o histórico de forma linear.
@@ -25,7 +25,7 @@ git reset --hard HEAD~1`,
     {
       id: 8,
       title: 'Resolução de Conflitos e Diagnóstico',
-      content: `**Conteúdo:**
+      content: `Conteúdo:
 
 Resolvendo conflitos de merge.
 Corrigindo erros e diagnosticando o histórico.
@@ -44,13 +44,13 @@ git commit`,
     {
       id: 9,
       title: 'Projeto Final e Fluxo Completo',
-      content: `**Conteúdo:**
+      content: `Conteúdo:
 
-Aplicar um fluxo Git completo: **branch → PR → merge → release**
+Aplicar um fluxo Git completo:  branch → PR → merge → release 
 Diagnosticar e otimizar fluxos em projetos reais.
 Compreender o impacto de cada ação no histórico.
 
-**Atividade prática final:**
+Atividade prática final:
 Resolver conflitos reais, usar git stash, criar uma release e revisar o histórico.
 
 Este é o momento de aplicar todos os conhecimentos adquiridos em um projeto real completo.`,

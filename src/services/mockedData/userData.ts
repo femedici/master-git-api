@@ -2,8 +2,8 @@ import { User } from '../../types';
 
 export const mockUser: User = {
   id: '1',
-  name: 'João Silva',
-  email: 'joao@email.com',
+  name: 'Felipe Medici',
+  email: 'fe@gmail.com',
   progress: {
     currentModule: 1,
     completedModules: [],

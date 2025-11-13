@@ -10,18 +10,18 @@ export const module2: Module = {
     {
       id: 4,
       title: 'Comandos Básicos',
-      content: `**Conteúdo:**
+      content: `Conteúdo:
 
 git init, git add, git commit — criando e salvando versões.
 git clone, git push, git pull — conectando-se a repositórios remotos.
 
 Os comandos básicos do Git formam a base de todo fluxo de trabalho:
-- **git init**: Inicializa um novo repositório
-- **git add**: Adiciona arquivos ao staging area
-- **git commit**: Salva um snapshot do projeto
-- **git clone**: Copia um repositório remoto
-- **git push**: Envia commits para repositório remoto
-- **git pull**: Baixa e integra mudanças do repositório remoto`,
+-  git init : Inicializa um novo repositório
+-  git add : Adiciona arquivos ao staging area
+-  git commit : Salva um snapshot do projeto
+-  git clone : Copia um repositório remoto
+-  git push : Envia commits para repositório remoto
+-  git pull : Baixa e integra mudanças do repositório remoto`,
       practicalExample: `git clone https://github.com/usuario/repositorio.git 
 git add . 
 git commit -m "primeiro commit" 
@@ -31,13 +31,13 @@ git push origin main`,
     {
       id: 5,
       title: 'Fluxo de Trabalho e Estruturação',
-      content: `**Conteúdo:**
+      content: `Conteúdo:
 
 Como estruturar um projeto versionado.
-Ciclo de versionamento: **editar → adicionar → confirmar → enviar.**
+Ciclo de versionamento:  editar → adicionar → confirmar → enviar. 
 Lidando com revisões e pequenas modificações.
 
-**Atividade prática:**
+Atividade prática:
 - Criar um repositório versionado.
 - Simular o ciclo de edição e envio de alterações.
 
@@ -48,7 +48,7 @@ O fluxo básico do Git segue um padrão consistente que, uma vez dominado, torna
     {
       id: 6,
       title: 'Colaboração e Branches',
-      content: `**Conteúdo:**
+      content: `Conteúdo:
 
 Criação e integração de branches:
 - git branch

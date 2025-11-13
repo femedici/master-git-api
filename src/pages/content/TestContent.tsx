@@ -260,7 +260,7 @@ const TestContent: React.FC<TestContentProps> = ({ moduleId, user, onShowComplet
       <Content>
         <ResultContainer $passed={result.passed}>
           <ResultTitle>
-            {result.passed ? '🎉 Parabéns! Você foi aprovado!' : '😔 Você não foi aprovado'}
+            {result.passed ? 'Parabéns! Você foi aprovado!' : 'Você não foi aprovado'}
           </ResultTitle>
           <ResultScore>{result.score}%</ResultScore>
           <div>

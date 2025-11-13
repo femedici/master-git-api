@@ -254,8 +254,7 @@ const HomeContent: React.FC<HomeContentProps> = ({ user, onShowCompletionModal }
           );
         })}
       </ModulesGrid>
-      
-      {/* Botão temporário para testar o modal de conclusão */}
+
       {onShowCompletionModal && (
         <div style={{ marginTop: '32px', textAlign: 'center' }}>
           <button
