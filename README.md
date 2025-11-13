@@ -132,17 +132,13 @@ src/
     └── index.ts           # Interfaces e tipos
 ```
 
-## 📖 Documentação Completa
+## Documentação Completa
 
 Para requisitos detalhados, consulte: [`requisitosDoc.md`](./requisitosDoc.md)
 
 ---
 
-## 🚀 Status do Projeto
-
-✅ **Concluído** - Sistema funcional com todas as funcionalidades implementadas
-
-### 📋 Funcionalidades Implementadas:
+## Funcionalidades Implementadas:
 
 - [x] Sistema de autenticação
 - [x] Dashboard com progresso visual
@@ -154,11 +150,11 @@ Para requisitos detalhados, consulte: [`requisitosDoc.md`](./requisitosDoc.md)
 - [x] Design responsivo
 - [x] Animações e transições suaves
 
-## 🎓 Contexto Acadêmico
+## Contexto Acadêmico
 
 Este projeto foi desenvolvido como **Objeto de Aprendizagem (OA)** para o Mestrado em Ciência da Computação, focando em metodologias ativas de ensino para o domínio de ferramentas de versionamento.
 
-### 📊 Métricas do Projeto:
+### Métricas do Projeto:
 - **3 Módulos** progressivos de aprendizagem
 - **9 Sessões** interativas com conteúdo prático
 - **15+ Questões** de teste com diferentes tipos
