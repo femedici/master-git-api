@@ -5,9 +5,9 @@
 ![Vite](https://img.shields.io/badge/Vite-5.0+-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![Styled Components](https://img.shields.io/badge/Styled_Components-6.0+-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
 
- Objetos de Aprendizagem — Mestrado   
- Autor:  Felipe Augusto Medici de Oliveira — _RA 2458772_  
- Proposta de Objeto de Aprendizagem (OA) 
+Objetos de Aprendizagem — Mestrado  
+ Autor: Felipe Augusto Medici de Oliveira — _RA 2458772_  
+ Proposta de Objeto de Aprendizagem (OA)
 
 ---
 
@@ -38,28 +38,31 @@ _No cmap - pasta /grupo33_
 
 ## Modelo Instrucional:
 
+📄 **[Modelo Instrucional Detalhado (PDF)](./public/MODELO%20INSTRUCIONAL%20—%20Master%20GIT.pdf)**  
+📝 **[Modelo Instrucional (Markdown)](./public/modeloInstrucional.md)**
+
 ![Modelo Instrucional](./public/modeloInstrucional.png)
 
 ## Objetivos Educacionais
 
-O  MasterGit  é um objeto de aprendizagem (OA) interativo para desenvolvimento de domínio  conceitual e prático  do Git como sistema de controle de versão distribuído.
+O MasterGit é um objeto de aprendizagem (OA) interativo para desenvolvimento de domínio conceitual e prático do Git como sistema de controle de versão distribuído.
 
 ### Público-Alvo
 
- Primário: 
+Primário:
 
-- Estudantes de  Computação  (Ciência da Computação, Engenharia de Software)
-- Estudantes de  Engenharias  (Elétrica, Mecatrônica, Produção) com foco em automação
--  Profissionais de desenvolvimento  iniciantes e intermediários
--  Pesquisadores  que necessitam de controle de versão para experimentos
+- Estudantes de Computação (Ciência da Computação, Engenharia de Software)
+- Estudantes de Engenharias (Elétrica, Mecatrônica, Produção) com foco em automação
+- Profissionais de desenvolvimento iniciantes e intermediários
+- Pesquisadores que necessitam de controle de versão para experimentos
 
- Secundário: 
+Secundário:
 
 - Analistas de sistemas e QA
 - Gerentes de projeto técnicos
 - Estudantes de pós-graduação em áreas correlatas
 
- Pré-requisitos: 
+Pré-requisitos:
 
 - ✅ Noções básicas de linha de comando (CLI)
 - ✅ Conhecimento básico de sistemas operacionais
@@ -67,26 +70,26 @@ O  MasterGit  é um objeto de aprendizagem (OA) interativo para desenvolvimento 
 
 ### Requisitos de Aprendizagem
 
-Ao concluir o  MasterGit , o estudante será capaz de:
+Ao concluir o MasterGit , o estudante será capaz de:
 
-####  Competências Conceituais 
+#### Competências Conceituais
 
-- Explicar o  modelo mental do Git  (objetos, commits, branches, HEAD, working tree, index)
+- Explicar o modelo mental do Git (objetos, commits, branches, HEAD, working tree, index)
 - Diferenciar e aplicar `git checkout`, `git switch` e `git restore` adequadamente
-- Compreender  estratégias de branching  (Git Flow, GitHub Flow, Trunk-Based)
+- Compreender estratégias de branching (Git Flow, GitHub Flow, Trunk-Based)
 
-####  Competências Práticas 
+#### Competências Práticas
 
-- Aplicar  fluxos de branching  (feature, release, hotfix) com segurança
-- Diagnosticar e resolver  conflitos de mesclagem  documentando o raciocínio
-- Projetar  estratégias de versionamento  adequadas a contextos específicos
-- Operacionalizar  colaboração : pull requests, code reviews, semantic commits
+- Aplicar fluxos de branching (feature, release, hotfix) com segurança
+- Diagnosticar e resolver conflitos de mesclagem documentando o raciocínio
+- Projetar estratégias de versionamento adequadas a contextos específicos
+- Operacionalizar colaboração : pull requests, code reviews, semantic commits
 
-####  Competências Avançadas 
+#### Competências Avançadas
 
-- Avaliar  riscos e trade-offs  de decisões de versionamento
-- Garantir  reprodutibilidade  de experimentos científicos com branches e tags
-- Implementar  automação de releases  e changelogs
+- Avaliar riscos e trade-offs de decisões de versionamento
+- Garantir reprodutibilidade de experimentos científicos com branches e tags
+- Implementar automação de releases e changelogs
 - Auditar históricos de commits para conformidade e qualidade
 
 ---
@@ -155,6 +158,7 @@ Para requisitos detalhados, consulte: [`requisitosDoc.md`](./requisitosDoc.md)
 Este projeto foi desenvolvido como **Objeto de Aprendizagem (OA)** para o Mestrado em Ciência da Computação, focando em metodologias ativas de ensino para o domínio de ferramentas de versionamento.
 
 ### Métricas do Projeto:
+
 - **3 Módulos** progressivos de aprendizagem
 - **9 Sessões** interativas com conteúdo prático
 - **15+ Questões** de teste com diferentes tipos
@@ -167,6 +171,6 @@ Este projeto foi desenvolvido como **Objeto de Aprendizagem (OA)** para o Mestra
 
 **MasterGit** - Domine o Git do básico ao avançado 🚀
 
-*Desenvolvido por Felipe Augusto Medici de Oliveira*
+_Desenvolvido por Felipe Augusto Medici de Oliveira_
 
 </div>

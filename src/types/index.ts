@@ -38,7 +38,7 @@ export interface Test {
 
 export interface Question {
   id: number;
-  type: 'multiple-choice' | 'code-completion' | 'descriptive';
+  type: "multiple-choice" | "code-completion" | "descriptive";
   question: string;
   options?: string[]; // for multiple choice
   codePrefix?: string; // for code completion (e.g., "git ")
@@ -52,4 +52,13 @@ export interface TestResult {
   passed: boolean;
   answers: { [questionId: number]: string };
   pendingValidation: number[]; // question IDs waiting for manual validation
+  wrongAnswers: WrongAnswer[]; // questions answered incorrectly
+}
+
+export interface WrongAnswer {
+  questionId: number;
+  question: string;
+  userAnswer: string;
+  correctAnswer: string;
+  type: "multiple-choice" | "code-completion" | "descriptive";
 }

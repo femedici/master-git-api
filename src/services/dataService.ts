@@ -1,11 +1,11 @@
-import { Module, Test, User, TestResult } from '../types';
-import { module1 } from './mockedData/module1';
-import { module2 } from './mockedData/module2';
-import { module3 } from './mockedData/module3';
-import { testModule1 } from './mockedData/testModule1';
-import { testModule2 } from './mockedData/testModule2';
-import { testModule3 } from './mockedData/testModule3';
-import { mockUser } from './mockedData/userData';
+import { Module, Test, User, TestResult } from "../types";
+import { module1 } from "./mockedData/module1";
+import { module2 } from "./mockedData/module2";
+import { module3 } from "./mockedData/module3";
+import { testModule1 } from "./mockedData/testModule1";
+import { testModule2 } from "./mockedData/testModule2";
+import { testModule3 } from "./mockedData/testModule3";
+import { mockUser } from "./mockedData/userData";
 
 class DataService {
   private modules: Module[] = [module1, module2, module3];
@@ -18,16 +18,19 @@ class DataService {
   }
 
   private saveProgressToStorage(): void {
-    localStorage.setItem('mastergit-progress', JSON.stringify(this.currentUser.progress));
+    localStorage.setItem(
+      "mastergit-progress",
+      JSON.stringify(this.currentUser.progress)
+    );
   }
 
   private loadProgressFromStorage(): void {
-    const savedProgress = localStorage.getItem('mastergit-progress');
+    const savedProgress = localStorage.getItem("mastergit-progress");
     if (savedProgress) {
       try {
         this.currentUser.progress = JSON.parse(savedProgress);
       } catch (error) {
-        console.error('Error loading progress from storage:', error);
+        console.error("Error loading progress from storage:", error);
       }
     }
   }
@@ -43,22 +46,22 @@ class DataService {
 
   // Module methods
   getAllModules(): Module[] {
-    return this.modules.map(module => ({
+    return this.modules.map((module) => ({
       ...module,
-      isLocked: this.isModuleLocked(module.id)
+      isLocked: this.isModuleLocked(module.id),
     }));
   }
 
   getModule(moduleId: number): Module | undefined {
-    const module = this.modules.find(m => m.id === moduleId);
+    const module = this.modules.find((m) => m.id === moduleId);
     if (module) {
       return {
         ...module,
         isLocked: this.isModuleLocked(moduleId),
-        sessions: module.sessions.map(session => ({
+        sessions: module.sessions.map((session) => ({
           ...session,
-          isCompleted: this.isSessionCompleted(moduleId, session.id)
-        }))
+          isCompleted: this.isSessionCompleted(moduleId, session.id),
+        })),
       };
     }
     return undefined;
@@ -70,15 +73,21 @@ class DataService {
   }
 
   private isSessionCompleted(moduleId: number, sessionId: number): boolean {
-    return this.currentUser.progress.sessionProgress[moduleId]?.includes(sessionId) || false;
+    return (
+      this.currentUser.progress.sessionProgress[moduleId]?.includes(
+        sessionId
+      ) || false
+    );
   }
 
   completeSession(moduleId: number, sessionId: number): void {
     if (!this.currentUser.progress.sessionProgress[moduleId]) {
       this.currentUser.progress.sessionProgress[moduleId] = [];
     }
-    
-    if (!this.currentUser.progress.sessionProgress[moduleId].includes(sessionId)) {
+
+    if (
+      !this.currentUser.progress.sessionProgress[moduleId].includes(sessionId)
+    ) {
       this.currentUser.progress.sessionProgress[moduleId].push(sessionId);
       this.saveProgressToStorage(); // Save progress after completing session
     }
@@ -86,46 +95,64 @@ class DataService {
 
   uncompleteSession(moduleId: number, sessionId: number): void {
     if (this.currentUser.progress.sessionProgress[moduleId]) {
-      this.currentUser.progress.sessionProgress[moduleId] = 
-        this.currentUser.progress.sessionProgress[moduleId].filter(id => id !== sessionId);
+      this.currentUser.progress.sessionProgress[moduleId] =
+        this.currentUser.progress.sessionProgress[moduleId].filter(
+          (id) => id !== sessionId
+        );
       this.saveProgressToStorage(); // Save progress after uncompleting session
     }
   }
 
   isModuleReadyForTest(moduleId: number): boolean {
-    const module = this.modules.find(m => m.id === moduleId);
+    const module = this.modules.find((m) => m.id === moduleId);
     if (!module) return false;
-    
-    const completedSessions = this.currentUser.progress.sessionProgress[moduleId] || [];
+
+    const completedSessions =
+      this.currentUser.progress.sessionProgress[moduleId] || [];
     return completedSessions.length === module.sessions.length;
   }
 
   isCourseCompleted(): boolean {
-    return this.currentUser.progress.completedModules.length === this.modules.length;
+    return (
+      this.currentUser.progress.completedModules.length === this.modules.length
+    );
   }
 
   // Test methods
   getTest(moduleId: number): Test | undefined {
-    return this.tests.find(t => t.moduleId === moduleId);
+    return this.tests.find((t) => t.moduleId === moduleId);
   }
 
-  submitTest(testId: number, answers: { [questionId: number]: string }): TestResult {
-    const test = this.tests.find(t => t.id === testId);
+  submitTest(
+    testId: number,
+    answers: { [questionId: number]: string }
+  ): TestResult {
+    const test = this.tests.find((t) => t.id === testId);
     if (!test) {
-      throw new Error('Test not found');
+      throw new Error("Test not found");
     }
 
     let correctAnswers = 0;
     let totalQuestions = test.questions.length;
     let pendingValidation: number[] = [];
+    let wrongAnswers: any[] = [];
 
-    test.questions.forEach(question => {
+    test.questions.forEach((question) => {
       const userAnswer = answers[question.id];
-      if (question.type === 'descriptive') {
+      if (question.type === "descriptive") {
         pendingValidation.push(question.id);
         correctAnswers++; // Count descriptive as correct for percentage calculation
       } else if (userAnswer === question.correctAnswer) {
         correctAnswers++;
+      } else {
+        // Add to wrong answers
+        wrongAnswers.push({
+          questionId: question.id,
+          question: question.question,
+          userAnswer: userAnswer || "Não respondida",
+          correctAnswer: question.correctAnswer,
+          type: question.type,
+        });
       }
     });
 
@@ -137,7 +164,8 @@ class DataService {
       score,
       passed,
       answers,
-      pendingValidation
+      pendingValidation,
+      wrongAnswers,
     };
 
     // If passed, unlock next module
@@ -161,7 +189,7 @@ class DataService {
         if (email && password) {
           resolve(this.currentUser);
         } else {
-          reject(new Error('Invalid credentials'));
+          reject(new Error("Invalid credentials"));
         }
       }, 1000);
     });
@@ -173,7 +201,7 @@ class DataService {
         this.currentUser = {
           ...this.currentUser,
           name,
-          email
+          email,
         };
         resolve(this.currentUser);
       }, 1000);
