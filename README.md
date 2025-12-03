@@ -41,7 +41,6 @@ _No cmap - pasta /grupo33_
 📄 **[Modelo Instrucional Detalhado (PDF)](./public/MODELO%20INSTRUCIONAL%20—%20Master%20GIT.pdf)**  
 📝 **[Modelo Instrucional (Markdown)](./public/modeloInstrucional.md)**
 
-![Modelo Instrucional](./public/modeloInstrucional.png)
 
 ## Objetivos Educacionais
 
