@@ -13,7 +13,6 @@ Introduzir o estudante ao conceito de controle de versão utilizando Git, compre
 - O que é Git e para que serve.
 - Git como **ferramenta de controle de versão distribuído**.
 - Como o Git gerencia arquivos, diretórios e histórico.
-- Estados de arquivo: _untracked_, _tracked_, _modified_, _staged_, _committed_.
 - Instalação e configuração inicial (`git config`).
 - Criando um repositório com `git init`.
 - Adicionando arquivos ao controle do Git:
@@ -111,8 +110,6 @@ Capacitar o aluno a lidar com cenários avançados do Git, gerenciar alteraçõe
 - Conceito e uso de **Git Stash**:
 
   - `git stash`
-  - `git stash list`
-  - `git stash pop`
   - Quando usar stash em fluxos reais.
 
 - Entendendo conflitos de merge:
@@ -128,12 +125,6 @@ Capacitar o aluno a lidar com cenários avançados do Git, gerenciar alteraçõe
   - Revisão de código
   - Comentários e solicitações de mudança
   - Aprovação e merge via plataforma
-
-- Rebase (conceito introdutório, opcional):
-
-  - `git rebase` como alternativa ao merge
-
-- Boas práticas de versionamento avançado.
 
 ### **Critérios de Conclusão**
 
