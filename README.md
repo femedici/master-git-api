@@ -76,8 +76,8 @@ O passo a passo detalhado encontra-se disponível no arquivo de guia:
 
 Para educadores e interessados na fundamentação pedagógica deste objeto, disponibilizamos a documentação completa:
 
-- [Mapa Instrucional](./api/public/instrucional.png)\*\*
-- [Plano de Aula](./api/public/planoAula.pdf)\*\*
+- [Mapa Instrucional](./api/public/instrucional.png)
+- [Plano de Aula](./api/public/planoAula.pdf)
 
 ## Avaliação do Aprendizado
 
@@ -88,7 +88,7 @@ O aprendizado é avaliado automaticamente pelo sistema em dois níveis:
 
 ## Mapa Conceitual
 
-![Mapa Conceitual](./public/cmap.png)
+![Mapa Conceitual](./api/public/cmap.png)
 
 ---
 
