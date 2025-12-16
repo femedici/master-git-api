@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 interface ProgressContextType {
   currentLevel: number; // 0, 1, 2, 3 (3 means all completed)

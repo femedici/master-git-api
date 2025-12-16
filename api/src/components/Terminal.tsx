@@ -7,7 +7,7 @@ interface TerminalProps {
   currentStepCommand: string;
 }
 
-const Terminal: React.FC<TerminalProps> = ({ onCommand, history, currentStepCommand }) => {
+const Terminal: React.FC<TerminalProps> = ({ onCommand, history }) => {
   const [input, setInput] = useState('');
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -52,7 +52,6 @@ const Terminal: React.FC<TerminalProps> = ({ onCommand, history, currentStepComm
           value={input}
           onChange={(e) => setInput(e.target.value)}
           className="flex-1 bg-transparent border-none outline-none text-white placeholder-gray-600"
-          placeholder={`Digite '${currentStepCommand}'...`}
           autoFocus
         />
       </form>

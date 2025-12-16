@@ -1,175 +1,95 @@
-# MasterGit: Aprendizagem sobre Versionamento com uso da tecnologia Git
-
-![React](https://img.shields.io/badge/React-18.0+-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-5.0+-646CFF?style=for-the-badge&logo=vite&logoColor=white)
-![Styled Components](https://img.shields.io/badge/Styled_Components-6.0+-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
-
-Objetos de Aprendizagem — Mestrado  
- Autor: Felipe Augusto Medici de Oliveira — _RA 2458772_  
- Proposta de Objeto de Aprendizagem (OA)
+# Objeto de Aprendizagem: "MasterGit - Dominando o Controle de Versão"
 
 ---
 
-## Objetivo do sistema:
+Link para Video Aula: //
 
-Sistema para aprendizagem do controle de git. Onde o usuario ve seu progresso pelos modulos e atua com testes e validacoes do seu progresso.
+---
 
-## 🎬 Demonstração da Aplicação
+## Descrição Geral
 
-![MasterGit Demo](./public/video-proj.gif)
+Este objeto de aprendizagem consiste em uma Aplicação Web Interativa (SPA), com o objetivo de ensinar o estudante a utilizar e compreender o funcionamento do sistema de controle de versão Git. O conteúdo é apresentado por meio de módulos progressivos que combinam teoria, um terminal simulado para prática de comandos e um visualizador gráfico que demonstra em tempo real as alterações nos estados do Git (Working Directory, Staging Area, Repository).
 
-> **Demonstração interativa**: Sistema de aprendizagem com módulos progressivos, sessões expandíveis, testes interativos e relatório final de desempenho com análise personalizada.
+## Público-Alvo
 
-### 🛠️ Tecnologias Utilizadas:
+O objeto de aprendizagem é destinado a:
 
-- **Frontend**: React 18 + TypeScript + Vite
-- **Styling**: Styled Components + CSS-in-JS
-- **Ícones**: Lucide React (biblioteca moderna de ícones)
-- **Roteamento**: React Router DOM (SPA navigation)
-- **Estado**: React Hooks + Context API
-- **Build**: Vite (hot reload + otimizações)
-- **Persistência**: LocalStorage API
+- **Estudantes de Computação** (Ciência da Computação, Engenharia de Software) que necessitam dominar ferramentas de versionamento.
+- **Profissionais de desenvolvimento** iniciantes que buscam uma compreensão visual e prática do fluxo de trabalho do Git.
+- **Educadores** que desejam utilizar uma ferramenta visual para explicar conceitos abstratos de versionamento de código.
 
-## Mapa Conceitual (CMAP):
+**Pré-requisitos esperados:**
 
-_No cmap - pasta /grupo33_
+- Noções básicas de linha de comando (CLI).
+- Conhecimento básico de sistemas operacionais (arquivos e pastas).
+- Experiência mínima com edição de texto/código.
+
+## Requisitos de Aprendizagem
+
+Ao concluir os módulos do sistema, o estudante deverá ser capaz de:
+
+- **Compreender o modelo mental do Git**, diferenciando as áreas de trabalho (Local, Staging, Remoto).
+- **Executar comandos essenciais** como `git init`, `git add`, `git commit`, `git clone` e `git branch`.
+- **Gerenciar ramificações (branches)**, compreendendo como criar, alternar e fundir (merge) históricos de código.
+- **Resolver cenários práticos**, aplicando a sequência correta de comandos para atingir objetivos de versionamento.
+
+## Estrutura do Objeto de Aprendizagem
+
+O sistema segue uma estrutura modular e linear, conforme o diagrama instrucional:
+
+1.  **Módulo 1 – Conceitos Básicos**: Introduz o Git, clonagem, inicialização de repositórios e o ciclo básico de commit.
+2.  **Módulo 2 – Ramificações (Branches)**: Explica o conceito de desenvolvimento paralelo, criação e troca de branches.
+3.  **Módulo 3 – Avançado**: Aborda fusão de código (merge) e gerenciamento de mudanças temporárias (stash).
+4.  **Avaliação Prática (Cenários)**: Ao final de cada módulo, um teste de caso prático é liberado, onde o aluno deve resolver um problema completo sem assistência guiada.
+
+## Uso do Objeto
+
+O sistema dispõe de 3 módulos, onde cada módulo possui passos específicos a serem completados. A conclusão de um módulo libera o acesso ao próximo.
+
+Ao finalizar os passos de um módulo, é liberado o teste final. Trata-se de um teste de caso completo, onde é apresentado um cenário para o usuário executar uma sequência de comandos, resolvendo o problema proposto com os conhecimentos obtidos.
+
+Em cada módulo, a interface apresenta a parte de código, que simula um console/terminal para entrada de comandos, e a parte ilustrativa, que demonstra visualmente as ações realizadas.
+
+## Competências Desenvolvidas
+
+- Compreensão dos conceitos fundamentais do Git (commits, branches, merge, stash).
+- Capacidade de operar via linha de comando (CLI) para gerenciamento de projetos.
+- Habilidade para diagnosticar e resolver situações de versionamento complexas.
+- Preparação para atuar em equipes de desenvolvimento utilizando boas práticas de mercado.
+
+## Tecnologias Envolvidas
+
+- **React 18 + TypeScript**: Para a construção da interface interativa e lógica de estado.
+- **Vite**: Para build e otimização da aplicação.
+- **Framer Motion**: Para as animações didáticas do visualizador.
+- **Lucide React**: Para a iconografia moderna.
+
+## Guia de Instalação
+
+Para configurar o ambiente corretamente e executar o objeto de aprendizagem localmente, é necessário ter o Node.js instalado.
+
+O passo a passo detalhado encontra-se disponível no arquivo de guia:
+
+**[Guia de Instalação](./GUIA_DE_INSTALACAO.md)**
+
+## Modelo Instrucional e Plano de Aula
+
+Para educadores e interessados na fundamentação pedagógica deste objeto, disponibilizamos a documentação completa:
+
+- [Mapa Instrucional](./api/public/instrucional.png)\*\*
+- [Plano de Aula](./api/public/planoAula.pdf)\*\*
+
+## Avaliação do Aprendizado
+
+O aprendizado é avaliado automaticamente pelo sistema em dois níveis:
+
+1.  **Formativa (Passo a Passo)**: O sistema valida cada comando inserido no terminal simulado, fornecendo feedback imediato e visualização do resultado.
+2.  **Somativa (Cenários)**: Nos testes finais de cada módulo, o aluno deve completar uma missão complexa (ex: "Configure o repo e crie uma feature branch"). O sistema verifica o estado final do ambiente simulado para aprovar a conclusão.
+
+## Mapa Conceitual
+
 ![Mapa Conceitual](./public/cmap.png)
 
-## Modelo Instrucional:
-
-📄 **[Modelo Instrucional Detalhado (PDF)](./public/MODELO%20INSTRUCIONAL%20—%20Master%20GIT.pdf)**  
-📝 **[Modelo Instrucional (Markdown)](./public/modeloInstrucional.md)**
-
-
-## Objetivos Educacionais
-
-O MasterGit é um objeto de aprendizagem (OA) interativo para desenvolvimento de domínio conceitual e prático do Git como sistema de controle de versão distribuído.
-
-### Público-Alvo
-
-Primário:
-
-- Estudantes de Computação (Ciência da Computação, Engenharia de Software)
-- Estudantes de Engenharias (Elétrica, Mecatrônica, Produção) com foco em automação
-- Profissionais de desenvolvimento iniciantes e intermediários
-- Pesquisadores que necessitam de controle de versão para experimentos
-
-Secundário:
-
-- Analistas de sistemas e QA
-- Gerentes de projeto técnicos
-- Estudantes de pós-graduação em áreas correlatas
-
-Pré-requisitos:
-
-- ✅ Noções básicas de linha de comando (CLI)
-- ✅ Conhecimento básico de sistemas operacionais
-- ✅ Experiência mínima com editores de texto/código
-
-### Requisitos de Aprendizagem
-
-Ao concluir o MasterGit , o estudante será capaz de:
-
-#### Competências Conceituais
-
-- Explicar o modelo mental do Git (objetos, commits, branches, HEAD, working tree, index)
-- Diferenciar e aplicar `git checkout`, `git switch` e `git restore` adequadamente
-- Compreender estratégias de branching (Git Flow, GitHub Flow, Trunk-Based)
-
-#### Competências Práticas
-
-- Aplicar fluxos de branching (feature, release, hotfix) com segurança
-- Diagnosticar e resolver conflitos de mesclagem documentando o raciocínio
-- Projetar estratégias de versionamento adequadas a contextos específicos
-- Operacionalizar colaboração : pull requests, code reviews, semantic commits
-
-#### Competências Avançadas
-
-- Avaliar riscos e trade-offs de decisões de versionamento
-- Garantir reprodutibilidade de experimentos científicos com branches e tags
-- Implementar automação de releases e changelogs
-- Auditar históricos de commits para conformidade e qualidade
-
 ---
 
-## - Como Rodar o Projeto:
-
-### Pré-requisitos
-
-- Node.js (versão 16 ou superior)
-- Yarn ou npm
-
-### Instalação e Execução
-
-```bash
-# Instalar dependências
-yarn install
-
-# Executar em modo desenvolvimento
-yarn dev
-
-# Build para produção
-yarn build
-```
-
-### 📁 Estrutura do Projeto
-
-```
-src/
-├── components/          # Componentes reutilizáveis
-│   ├── CompletionModal.tsx  # Modal de conclusão com relatório
-│   ├── Header.tsx          # Cabeçalho da aplicação
-│   └── Sidebar.tsx         # Menu lateral de navegação
-├── pages/              # Páginas principais
-│   ├── LoginPage.tsx       # Página de autenticação
-│   ├── MainLayout.tsx      # Layout SPA principal
-│   ├── ModulesPage.tsx     # Lógica dos módulos (sessões)
-│   ├── TestPage.tsx        # Wrapper para testes
-│   └── content/           # Componentes de conteúdo
-├── services/           # Lógica de negócio
-│   ├── dataService.ts      # Gerenciamento de dados e persistência
-│   └── mockedData/        # "Banco de dados" mockado
-└── types/             # Definições TypeScript
-    └── index.ts           # Interfaces e tipos
-```
-
-## Documentação Completa
-
-Para requisitos detalhados, consulte: [`requisitosDoc.md`](./requisitosDoc.md)
-
----
-
-## Funcionalidades Implementadas:
-
-- [x] Sistema de autenticação
-- [x] Dashboard com progresso visual
-- [x] Módulos interativos com sessões expandíveis
-- [x] Sistema de testes com múltiplos tipos de questões
-- [x] Persistência de progresso local
-- [x] Modal de conclusão com relatório detalhado
-- [x] Navegação SPA fluida
-- [x] Design responsivo
-- [x] Animações e transições suaves
-
-## Contexto Acadêmico
-
-Este projeto foi desenvolvido como **Objeto de Aprendizagem (OA)** para o Mestrado em Ciência da Computação, focando em metodologias ativas de ensino para o domínio de ferramentas de versionamento.
-
-### Métricas do Projeto:
-
-- **3 Módulos** progressivos de aprendizagem
-- **9 Sessões** interativas com conteúdo prático
-- **15+ Questões** de teste com diferentes tipos
-- **100% TypeScript** para type safety
-- **Responsive Design** para diferentes dispositivos
-
----
-
-<div align="center">
-
-**MasterGit** - Domine o Git do básico ao avançado 🚀
-
-_Desenvolvido por Felipe Augusto Medici de Oliveira_
-
-</div>
+**Autor**: Felipe Augusto Medici de Oliveira — _RA 2458772_
