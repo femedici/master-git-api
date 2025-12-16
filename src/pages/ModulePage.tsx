@@ -72,9 +72,6 @@ const ModulePage: React.FC = () => {
     } else if (currentStep.command.startsWith("git commit")) {
       // Allow any commit message in quotes
       isCorrect = /^git commit -m ["'].+["']$/.test(cleanCmd);
-    } else if (currentStep.command.startsWith("git checkout -b")) {
-      // Allow any branch name
-      isCorrect = /^git checkout -b .+/.test(cleanCmd);
     } else {
       isCorrect = cleanCmd === expectedCmd;
     }
@@ -108,7 +105,10 @@ const ModulePage: React.FC = () => {
     } else {
       setTerminalHistory((prev) => [
         ...prev,
-        { type: "output", content: "Comando incorreto." },
+        {
+          type: "output",
+          content: "Comando incorreto.",
+        },
       ]);
     }
   };
