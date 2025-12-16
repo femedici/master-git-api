@@ -77,7 +77,7 @@ O passo a passo detalhado encontra-se disponível no arquivo de guia:
 Para educadores e interessados na fundamentação pedagógica deste objeto, disponibilizamos a documentação completa:
 
 
-![Mapa Instrucional](./api/public/cmap.png)
+![Mapa Instrucional](./api/public/instrucional.png)
 
 - [Plano de Aula](./api/public/planoAula.pdf)
 
